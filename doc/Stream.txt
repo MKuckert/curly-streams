@@ -1,0 +1,51 @@
+ - Seekable
+    ORIGIN_BEGIN
+    ORIGIN_CURRENT
+    ORIGIN_END
+	seek(offset, origin)
+	tell()
+ - InputStream [Interface]
+	available
+	read(len)
+	skip(n)
+ - OutputStream [Interface]
+	flush()
+	write(bytes)
+ - Stream [Interface] -|> InputStream, OutputStream
+ - EchoStream -|> OutputStream
+ - BufferedStream -|> Stream [TODO]
+    ctr(Stream)
+ - BufferedInputStream -|> InputStream
+    ctr(InputStream)
+ - BufferedOutputStream -|> OutputStream
+    ctr(OutputStream)
+ - FileStream -|> Stream, Seekable
+	ctr(path, flags)
+ - FileInputStream -|> InputStream, Seekable
+    ctr(path)
+ - FileOutputStream -|> OutputStream, Seekable
+    ctr(path, flags)
+ - MemoryStream -|> Stream, Seekable
+	ctr(buffer)
+	getBuffer()
+ - MemoryInputStream -|> InputStream, Seekable
+	ctr(buffer)
+ - MemoryOutputStream -|> OutputStream, Seekable
+	getBuffer()
+ - HttpInputStream -|> InputStream [TODO]
+    ctr(uri, options)
+ - AppendInputStream -|> InputStream
+    ctr(array)
+ - DeflateInputStream -|> InputStream [TODO]
+    ctr(InputStream)
+ - DeflateOutputStream -|> OtputStream [TODO]
+    ctr(OutputStream)
+
+ - StreamWrapper (Registrierbar für Protokoll; kapselt Stream-Instanz) [TODO]
+ - StreamWrapperRegistry [TODO]
+
+ - InputStreamFactory [TODO]
+    createStream(uri)
+ - OutputStreamFactory [TODO]
+    createStream(uri)
+    
