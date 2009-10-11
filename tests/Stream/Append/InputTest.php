@@ -51,6 +51,14 @@ class Curly_Stream_Append_InputTest extends PHPUnit_Framework_TestCase {
 			->append($this->fstream2);
 	}
 	
+	public function testCtr() {
+		$stream=new Curly_Stream_Append_Input();
+		$this->assertEquals($stream->read(10), '');
+		
+		$stream=new Curly_Stream_Append_Input($this->mstream);
+		$this->assertEquals($stream->read(10), 'ABCDEFGHIJ');
+	}
+	
 	public function testAvailable() {
 		$this->assertTrue($this->append->available());
 		$this->assertEquals($this->append->read(9), '012345678');
