@@ -3,12 +3,15 @@ Implemented by Interface `Curly_Stream_Input`
 
 ==Methods==
 `public boolean available()`
+
 Checks if more data is available in this stream.
 
 `public string read(integer len)`
+
 Reads data out of this stream.
 
 `public void skip(integer len)`
+
 Skips data of this stream.
 
 ==Example usage==
