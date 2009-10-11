@@ -17,6 +17,8 @@ require_once 'src/Stream/File.php';
 require_once 'src/Stream/File/Input.php';
 require_once 'src/Stream/File/Output.php';
 require_once 'src/Stream/Append/Input.php';
+require_once 'src/Stream/Base/Reader.php';
+require_once 'src/Stream/Binary/Reader.php';
 
 require_once 'tests/Stream/Buffered/InputWithMemoryTest.php';
 require_once 'tests/Stream/Buffered/OutputWithFileTest.php';
@@ -28,6 +30,8 @@ require_once 'tests/Stream/File/InputTest.php';
 require_once 'tests/Stream/File/OutputTest.php';
 require_once 'tests/Stream/FileTest.php';
 require_once 'tests/Stream/Append/InputTest.php';
+require_once 'tests/Stream/Base/ReaderTest.php';
+require_once 'tests/Stream/Binary/ReaderTest.php';
 
 require_once 'PHPUnit/Framework/TestSuite.php';
 
@@ -52,6 +56,8 @@ class TestSuite extends PHPUnit_Framework_TestSuite {
 		$this->addTestSuite('Curly_Stream_Buffered_InputWithMemoryTest');
 		$this->addTestSuite('Curly_Stream_Buffered_OutputWithFileTest');
 		$this->addTestSuite('Curly_Stream_Append_InputTest');
+		$this->addTestSuite('Curly_Stream_Base_ReaderTest');
+		$this->addTestSuite('Curly_Stream_Binary_ReaderTest');
 	}
 	
 	/**
