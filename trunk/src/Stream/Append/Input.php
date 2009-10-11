@@ -28,8 +28,10 @@ class Curly_Stream_Append_Input implements Curly_Stream_Input {
 	 * 
 	 * @param Curly_Stream_Input First stream to use.
 	 */
-	public function __construct(Curly_Stream_Input $stream) {
-		$this->append($stream);
+	public function __construct(Curly_Stream_Input $stream=NULL) {
+		if($stream!==NULL) {
+			$this->append($stream);
+		}
 	}
 	
 	/**
