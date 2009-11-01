@@ -19,6 +19,7 @@ require_once 'src/Stream/File/Output.php';
 require_once 'src/Stream/Append/Input.php';
 require_once 'src/Stream/Base/Reader.php';
 require_once 'src/Stream/Binary/Reader.php';
+require_once 'src/Stream/Xml/Output.php';
 
 require_once 'tests/Stream/Buffered/InputWithMemoryTest.php';
 require_once 'tests/Stream/Buffered/OutputWithFileTest.php';
@@ -32,6 +33,7 @@ require_once 'tests/Stream/FileTest.php';
 require_once 'tests/Stream/Append/InputTest.php';
 require_once 'tests/Stream/Base/ReaderTest.php';
 require_once 'tests/Stream/Binary/ReaderTest.php';
+require_once 'tests/Stream/Xml/OutputTest.php';
 
 require_once 'PHPUnit/Framework/TestSuite.php';
 
@@ -44,7 +46,7 @@ class TestSuite extends PHPUnit_Framework_TestSuite {
 	 * Constructs the test suite handler.
 	 */
 	public function __construct() {
-		$this->setName ( 'TestSuite' );
+		$this->setName( 'Curly Streams' );
 		
 		$this->addTestSuite('Curly_Stream_Memory_SeekableTest');
 		$this->addTestSuite('Curly_Stream_Memory_InputTest');
@@ -58,6 +60,7 @@ class TestSuite extends PHPUnit_Framework_TestSuite {
 		$this->addTestSuite('Curly_Stream_Append_InputTest');
 		$this->addTestSuite('Curly_Stream_Base_ReaderTest');
 		$this->addTestSuite('Curly_Stream_Binary_ReaderTest');
+		$this->addTestSuite('Curly_Stream_Xml_OutputTest');
 	}
 	
 	/**
