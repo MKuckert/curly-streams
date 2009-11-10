@@ -8,7 +8,7 @@ Extends a datastream by a seek operation, so a certain position can directly bei
 
 Seeks to a specified position in a datastream.
 
-Possible values for the origin argument is any of the ORIGIN_*-constants of the interface. There meanings are as following:
+Possible values for the origin argument is any of the ORIGIN-constants of the interface. There meanings are as following:
   * `ORIGIN_BEGIN`: Seeks from the beginning of the stream
   * `ORIGIN_CURRENT`: Seeks from the current position
   * `ORIGIN_END`: Seeks from the end of the stream. offset has to be negative.
