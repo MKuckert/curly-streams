@@ -4,7 +4,7 @@ Implemented by Class `Curly_Stream_Buffered_Input`
 This class is a wrapper for another stream to use an internal buffer and reduce the number of attempted read operations. This is very efficient when performing many read operations on a slow InputStream, e.g. a FileInputStream.
 
 ==Implements==
-  * InputStream (Curly_Stream_Input)
+  * InputStream (`Curly_Stream_Input`)
 
 ==Example usage==
 {{{
