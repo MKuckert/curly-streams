@@ -40,6 +40,24 @@ class Curly_Stream_File_InputTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($this->stream->read(1), '');
 	}
 	
+	public function testReadWithNegativeLength() {
+		try {
+			$this->stream->read(-1);
+		}
+		catch(Curly_Stream_Exception $ex) {
+			$this->assertContains('is invalid for a read operation. Only positive values area valid.', $ex->getMessage());
+		}
+	}
+	
+	public function testSkipWithNegativeLength() {
+		try {
+			$this->stream->skip(-1);
+		}
+		catch(Curly_Stream_Exception $ex) {
+			$this->assertContains('is invalid for a skip operation. Only positive values area valid.', $ex->getMessage());
+		}
+	}
+	
 	public function testReadOverEnd() {
 		$this->stream->read(29);
 		$this->assertEquals($this->stream->read(1000), '9');

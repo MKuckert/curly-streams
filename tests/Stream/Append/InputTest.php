@@ -75,6 +75,18 @@ class Curly_Stream_Append_InputTest extends PHPUnit_Framework_TestCase {
 		$this->assertFalse($this->append->available());
 	}
 	
+	public function testAvailableIfAllStreamsAreUnavailable() {
+		// Read all streams before the append stream can do that
+		$this->fstream1->read(1000);
+		$this->fstream2->read(1000);
+		$this->mstream->read(1000);
+		
+		$dump=(array)$this->append;
+		$this->assertGreaterThan(0, $dump["\0Curly_Stream_Append_Input\0_streamsCount"]);
+		
+		$this->assertFalse($this->append->available());
+	}
+	
 	public function testReadInOnce() {
 		$this->assertEquals($this->append->read(100), '0123456789ABCDEFGHIJ0123456789');
 	}
@@ -87,6 +99,11 @@ class Curly_Stream_Append_InputTest extends PHPUnit_Framework_TestCase {
 		catch(Curly_Stream_Exception $ex) {
 			$this->assertContains('is invalid for a read operation. Only positive values area valid.', $ex->getMessage());
 		}
+	}
+	
+	public function testSkip() {
+		$this->append->skip(100);
+		$this->assertFalse($this->append->available());
 	}
 
 }
