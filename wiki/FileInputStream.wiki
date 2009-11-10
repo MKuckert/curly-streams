@@ -1,0 +1,19 @@
+=FileInputStream=
+Implemented by Class `Curly_Stream_File_Input`
+
+For any reading file access this class is used. The default php file functions are used.
+
+==Implements==
+  * OutputStream (`Curly_Stream_Output`)
+  * SeekableStream (`Curly_Stream_Seekable`)
+
+==Example usage==
+{{{
+$stream=new Curly_Stream_File_Input('/path/to/file.txt');
+while($stream->available()) {
+	$data=$stream->read(1024);
+}
+
+// Because of the native php functions all wrappers are possible with this stream
+$stream=new Curly_Stream_File_Input('http://example.com/');
+}}}
