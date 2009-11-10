@@ -3,7 +3,7 @@
 /**
  * Curly_Stream_Exception
  * 
- * Base exception class for the stream package.
+ * Exception class for the stream package.
  * 
  * @author Martin Kuckert
  * @copyright Copyright (c) 2009 Martin Kuckert

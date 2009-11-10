@@ -90,5 +90,10 @@ class Curly_Stream_File_OutputTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(file_get_contents($this->outFilepath), '01AB45');
 	}
 	
+	public function testFlush() {
+		$this->stream=new Curly_Stream_File_Output($this->outFilepath, Curly_Stream_File::CLEAN);
+		$this->stream->flush(); // Yep, this is all
+	}
+	
 }
 

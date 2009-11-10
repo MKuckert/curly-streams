@@ -54,6 +54,24 @@ class Curly_Stream_FileTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($this->stream->read(1), '');
 	}
 	
+	public function testReadWithNegativeLength() {
+		try {
+			$this->stream->read(-1);
+		}
+		catch(Curly_Stream_Exception $ex) {
+			$this->assertContains('is invalid for a read operation. Only positive values area valid.', $ex->getMessage());
+		}
+	}
+	
+	public function testSkipWithNegativeLength() {
+		try {
+			$this->stream->skip(-1);
+		}
+		catch(Curly_Stream_Exception $ex) {
+			$this->assertContains('is invalid for a skip operation. Only positive values area valid.', $ex->getMessage());
+		}
+	}
+	
 	public function testReadOverEnd() {
 		$this->stream->read(29);
 		$this->assertEquals($this->stream->read(1000), '9');
@@ -141,6 +159,11 @@ class Curly_Stream_FileTest extends PHPUnit_Framework_TestCase {
 		$this->stream->write('AB');
 		
 		$this->assertEquals(file_get_contents($this->outFilepath), '01AB45');
+	}
+	
+	public function testFlush() {
+		$this->stream=new Curly_Stream_File($this->outFilepath, Curly_Stream_File::CLEAN);
+		$this->stream->flush(); // Yep, this is all
 	}
 	
 }

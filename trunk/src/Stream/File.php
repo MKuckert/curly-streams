@@ -92,7 +92,7 @@ class Curly_Stream_File extends Curly_Stream_File_Seekable implements Curly_Stre
 	 */
 	public function read($len) {
 		if($len<0) {
-			throw new Curly_Stream_Exception('The given length '.$len.' is invalid for a read operation. Only positiv values area valid.');
+			throw new Curly_Stream_Exception('The given length '.$len.' is invalid for a read operation. Only positive values area valid.');
 		}
 		else if($len===0) {
 			return '';
@@ -115,7 +115,7 @@ class Curly_Stream_File extends Curly_Stream_File_Seekable implements Curly_Stre
 	 */
 	public function skip($len) {
 		if($len<0) {
-			throw new Curly_Stream_Exception('The given length '.$len.' is invalid for a skip operation. Only positiv values area valid.');
+			throw new Curly_Stream_Exception('The given length '.$len.' is invalid for a skip operation. Only positive values area valid.');
 		}
 		
 		$this->read($len);
