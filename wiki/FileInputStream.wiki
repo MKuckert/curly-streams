@@ -4,7 +4,7 @@ Implemented by Class `Curly_Stream_File_Input`
 For any reading file access this class is used. The default php file functions are used.
 
 ==Implements==
-  * OutputStream (`Curly_Stream_Output`)
+  * InputStream (`Curly_Stream_Input`)
   * SeekableStream (`Curly_Stream_Seekable`)
 
 ==Example usage==
