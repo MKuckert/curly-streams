@@ -55,24 +55,30 @@ class Curly_Stream_File extends Curly_Stream_File_Seekable implements Curly_Stre
 		}
 		
 		\$filepath=(string)\$filepath;
-		if((\$mode & Curly_Stream_File::OPEN)===Curly_Stream_File::OPEN) {
-			// File does not exist
-			if((\$mode & Curly_Stream_File::CREATE)!==Curly_Stream_File::CREATE and !file_exists(\$filepath)) {
-				throw new Curly_Stream_Exception('The file '.\$filepath.' does not exist and can not been opened');
+		if(is_numeric(\$mode)) {
+			\$mode=(int)\$mode;
+			if((\$mode & Curly_Stream_File::OPEN)===Curly_Stream_File::OPEN) {
+				// File does not exist
+				if((\$mode & Curly_Stream_File::CREATE)!==Curly_Stream_File::CREATE and !file_exists(\$filepath)) {
+					throw new Curly_Stream_Exception('The file '.\$filepath.' does not exist and can not been opened');
+				}
+				
+				if((\$mode & Curly_Stream_File::TRUNCATE)===Curly_Stream_File::TRUNCATE) {
+					\$mode='w+';
+				}
+				else {
+					\$mode='a+';
+				}
 			}
-			
-			if((\$mode & Curly_Stream_File::TRUNCATE)===Curly_Stream_File::TRUNCATE) {
-				\$mode='w+';
+			else if((\$mode & Curly_Stream_File::CREATE)===Curly_Stream_File::CREATE) {
+				\$mode='x+';
 			}
 			else {
-				\$mode='a+';
+				throw new Curly_Stream_Exception('Invalid open mode given. At least the open or create mode has to be specified');
 			}
 		}
-		else if((\$mode & Curly_Stream_File::CREATE)===Curly_Stream_File::CREATE) {
-			\$mode='x+';
-		}
 		else {
-			throw new Curly_Stream_Exception('Invalid open mode given. At least the open or create mode has to be specified');
+			\$mode=trim(\$mode, 'b');
 		}
 		
 		\$this->_handle=fopen(\$filepath, \$mode.'b');

@@ -6,15 +6,6 @@ class Curly_Stream_WrapperTest_InputMock extends Curly_Stream_Memory {
 	public function __construct() {
 		throw new Curly_Stream_Exception('This really should happen!');
 	}
-	public function read() {
-		throw new Curly_Stream_Exception('This really should happen!');
-	}
-	public function write() {
-		throw new Curly_Stream_Exception('This really should happen!');
-	}
-	public function flush() {
-		throw new Curly_Stream_Exception('This really should happen!');
-	}
 }
 
 /**
@@ -114,6 +105,31 @@ class Curly_Stream_WrapperTest extends PHPUnit_Framework_TestCase {
 		
 		$handle=fopen('memory-out://', 'r');
 		$this->assertEquals('', fread($handle, 10));
+	}
+	
+	public function testSeek() {
+		Curly_Stream_Wrapper_Registry::getGlobalInstance()
+			->register('file-out', 'Curly_Stream_File_Output');
+		
+		$file=dirname(__FILE__).'/wrappertest.txt';
+		
+		$handle=fopen('file-out://'.$file, Curly_Stream_File::CLEAN);
+		fwrite($handle, 'testdata');
+		
+		fseek($handle, 0, SEEK_SET);
+		$this->assertEquals(0, ftell($handle));
+		
+		fseek($handle, 0, SEEK_END);
+		$this->assertEquals(8, ftell($handle));
+		
+		fseek($handle, -2, SEEK_CUR);
+		$this->assertEquals(6, ftell($handle));
+		
+		fseek($handle, 2, SEEK_SET);
+		$this->assertEquals(2, ftell($handle));
+		
+		fseek($handle, 2, SEEK_CUR);
+		$this->assertEquals(4, ftell($handle));
 	}
 	
 	public function testOpenDirectly() {

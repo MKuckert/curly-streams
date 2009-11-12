@@ -83,7 +83,7 @@ class Curly_Stream_File_InputTest extends PHPUnit_Framework_TestCase {
 	}
 	
 	public function testSeekToEnd() {
-		$this->markTestSkipped('This test is known is problematic. See doc comment in Curly_Stream_File_Input');
+		$this->markTestSkipped('This test is known as problematic. See doc comment in Curly_Stream_File_Input');
 		
 		$this->assertEquals($this->stream->read(5), '01234');
 		$this->stream->seek(0, Curly_Stream_Seekable::ORIGIN_END);

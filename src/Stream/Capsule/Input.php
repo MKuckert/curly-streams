@@ -1,18 +1,19 @@
 <?php
 
 /**
- * Curly_Stream_Base_Reader
+ * Curly_Stream_Capsule_Input
  * 
- * Base implementation for a class that reads the data of a stream.
+ * Base implementation for a class that capsules another stream and reads data
+ * of that one.
  * This implementation simply encapsulates a Curly_Stream_Input instance.
  * 
  * @author Martin Kuckert
  * @copyright Copyright (c) 2009 Martin Kuckert
  * @license New BSD License
- * @package Curly.Stream.Base
+ * @package Curly.Stream.Capsule
  * @since 11.10.2009
  */
-abstract class Curly_Stream_Base_Reader {
+class Curly_Stream_Capsule_Input implements Curly_Stream_Input {
 	
 	/**
 	 * @var Curly_Stream_Input The source stream for this reader.

@@ -95,5 +95,25 @@ class Curly_Stream_File_OutputTest extends PHPUnit_Framework_TestCase {
 		$this->stream->flush(); // Yep, this is all
 	}
 	
+	public function testOpenWithStringMode() {
+		foreach(array('r+', 'w'. 'w+', 'a', 'a+') as $mode) {
+			new Curly_Stream_File_Output($this->outFilepath, $mode);
+		}
+		foreach(array('x', 'x+') as $mode) {
+			unlink($this->outFilepath);
+			new Curly_Stream_File_Output($this->outFilepath, $mode);
+		}
+	}
+	
+	public function testOpenWithInvalidStringMode() {
+		try {
+			new Curly_Stream_File_Output($this->outFilepath, 'r');
+			$this->fail('Expected exception');
+		}
+		catch(Curly_Stream_Exception $ex) {
+			$this->assertContains('Invalid mode r given', $ex->getMessage());
+		}
+	}
+	
 }
 
