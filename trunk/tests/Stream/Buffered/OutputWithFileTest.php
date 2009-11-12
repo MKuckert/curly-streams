@@ -46,7 +46,7 @@ class Curly_Stream_Buffered_OutputWithFileTest extends PHPUnit_Framework_TestCas
 	
 	public function testCapsuledStream() {
 		$this->testOpen();
-		$this->assertEquals($this->fileStream, $this->bufferedStream->getCapsuledStream());
+		$this->assertEquals($this->fileStream, $this->bufferedStream->getStream());
 	}
 	
 	public function testWrite() {
@@ -60,13 +60,13 @@ class Curly_Stream_Buffered_OutputWithFileTest extends PHPUnit_Framework_TestCas
 		
 		$this->assertEquals(file_get_contents($this->outFilepath), '');
 		
-		$bufRemaining=Curly_Stream_Buffered_Output::BUFFERSIZE-8;
+		$bufRemaining=Curly_Stream_Buffered_Output::DEFAULT_BUFFERSIZE-8;
 		
 		$this->bufferedStream->write(str_repeat(' ', $bufRemaining-1));
 		$this->assertEquals(file_get_contents($this->outFilepath), '');
 		
 		$this->bufferedStream->write('X');
-		$this->assertEquals(Curly_Stream_Buffered_Output::BUFFERSIZE, filesize($this->outFilepath));
+		$this->assertEquals(Curly_Stream_Buffered_Output::DEFAULT_BUFFERSIZE, filesize($this->outFilepath));
 	}
 	
 	public function testFlush() {
@@ -91,6 +91,19 @@ class Curly_Stream_Buffered_OutputWithFileTest extends PHPUnit_Framework_TestCas
 		$this->bufferedStream=NULL;
 		
 		$this->assertEquals(file_get_contents($this->outFilepath), '012345');
+	}
+	
+	public function testWriteWithBuffersize() {
+		$this->fileStream = new Curly_Stream_File_Output($this->outFilepath);
+		$this->bufferedStream = new Curly_Stream_Buffered_Output($this->fileStream, 5);
+		
+		$this->bufferedStream->write('012');
+		
+		$this->assertEquals(file_get_contents($this->outFilepath), '');
+		
+		$this->bufferedStream->write('ABC');
+		
+		$this->assertEquals(file_get_contents($this->outFilepath), '012ABC');
 	}
 	
 }

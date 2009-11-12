@@ -64,6 +64,36 @@ class Curly_Stream_Buffered_InputWithMemoryTest extends PHPUnit_Framework_TestCa
 			'1234567890123456789'
 		);
 	}
+	
+	public function testReadWithBuffersize() {
+		$this->buffered=new Curly_Stream_Buffered_Input($this->orig, 5);
+		
+		// Fill the buffer
+		$this->assertEquals($this->buffered->read(1), '0');
+		
+		$this->assertEquals($this->orig->tell(), 5);
+		
+		$this->assertEquals($this->buffered->read(10), '1234567890');
+		
+		// The buffer should be empty, because we read more data than bufferSize*2
+		$arr=(array)$this->buffered;
+		$this->assertEquals(
+			$arr["\0Curly_Stream_Buffered_Input\0_buffer"],
+			''
+		);
+		
+		// Fill the buffer
+		$this->assertEquals($this->buffered->read(1), '1');
+		$this->assertEquals($this->buffered->read(8), '23456789');
+		
+		// We read the remaining 4 bytes of the first read operation and 4
+		// bytes of a newly filled buffer, so 1 byte remains
+		$arr=(array)$this->buffered;
+		$this->assertEquals(
+			$arr["\0Curly_Stream_Buffered_Input\0_buffer"],
+			'0'
+		);
+	}
 
 }
 
