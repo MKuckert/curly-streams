@@ -32,6 +32,7 @@ class Curly_Stream_Capsule_Input implements Curly_Stream_Input {
 	/**
 	 * Constructor
 	 * 
+	 * @throws Curly_Stream_Exception
 	 * @param Curly_Stream_Input
 	 */
 	public function __construct(Curly_Stream_Input $stream) {

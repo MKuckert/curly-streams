@@ -7,7 +7,6 @@
  - DeflateOutputStream -|> OtputStream [TODO]
     ctr(OutputStream)
  - ImageInputStream -|> InputStream [TODO]
- - InfiniteInputStream -|> InputStream [TODO]
  - LimitInputStream -|> InputStream [TODO]
  - ChunkInputStream -|> InputStream [TODO]
  - ArrayInputStream -|> InputStream [TODO]
