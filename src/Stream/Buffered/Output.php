@@ -4,11 +4,16 @@
  * Curly_Stream_Buffered_Output
  * 
  * Bufferes data to an outputstream internal, so lesser write operations are
- * required. Each write operation writes at least {@link BUFFERSIZE} bytes at
+ * required. Each write operation trys to write at least BUFFERSIZE bytes at
  * once into the datastream.
  * 
  * Note: Never modify the underlying outputstream directly. The resulting
  * behaviour is undefined.
+ * 
+ * Note: The buffersize should be twice as high as the longest write operation
+ * length. E.g. if the call write(data with strlen(100)) is the longest write
+ * operation in your code, use a buffersize value greater or equal to 200 to
+ * expect the best performance gain.
  * 
  * @author Martin Kuckert
  * @copyright Copyright (c) 2009 Martin Kuckert
@@ -19,14 +24,19 @@
 class Curly_Stream_Buffered_Output implements Curly_Stream_Output {
 	
 	/**
-	 * @desc Size of the internal data buffer.
+	 * @desc Default size of the internal data buffer.
 	 */
-	const BUFFERSIZE=2048;
+	const DEFAULT_BUFFERSIZE=2048;
 	
 	/**
 	 * @var Curly_Stream_Output Buffered output stream.
 	 */
 	private $_stream;
+	
+	/**
+	 * @var integer Maximal size of the internal buffer.
+	 */
+	private $_maxSize=0;
 	
 	/**
 	 * @var string Internal buffer.
@@ -36,14 +46,19 @@ class Curly_Stream_Buffered_Output implements Curly_Stream_Output {
 	/**
 	 * @var integer The current size of the internal buffer.
 	 */
-	private $_bufLen=0;
+	private $_curSize=0;
 	
 	/**
 	 * Constructor
 	 * 
 	 * @param Curly_Stream_Output The output stream used for buffering
+	 * @param integer Size of the internal buffer
 	 */
-	public function __construct(Curly_Stream_Output $stream) {
+	public function __construct(Curly_Stream_Output $stream, $buffersize=self::DEFAULT_BUFFERSIZE) {
+		if($buffersize<=0) {
+			throw new Curly_Stream_Exception('The buffersize has to be a positive non-zero value');
+		}
+		$this->_maxSize=(int)$buffersize;
 		$this->_stream=$stream;
 	}
 	
@@ -52,7 +67,7 @@ class Curly_Stream_Buffered_Output implements Curly_Stream_Output {
 	 */
 	public function __destruct() {
 		// Write the remaining data to the buffer
-		if($this->_bufLen>0) {
+		if($this->_curSize>0) {
 			$this->_stream->write($this->_buffer);
 		}
 	}
@@ -62,12 +77,12 @@ class Curly_Stream_Buffered_Output implements Curly_Stream_Output {
 	 * 
 	 * @return Curly_Stream_Output
 	 */
-	public function getCapsuledStream() {
+	public function getStream() {
 		return $this->_stream;
 	}
 	
 	/**
-	 * Schreibt alle intern gepufferten Daten in den Ausgabestrom.
+	 * Writes all internally buffered data into the output stream.
 	 * 
 	 * @throws Curly_Stream_Exception
 	 * @return void
@@ -75,11 +90,11 @@ class Curly_Stream_Buffered_Output implements Curly_Stream_Output {
 	public function flush() {
 		$this->_stream->write($this->_buffer);
 		$this->_buffer='';
-		$this->_bufLen=0;
+		$this->_curSize=0;
 	}
 	
 	/**
-	 * Schreibt die übergebenen Elemente in diesen Ausgabestrom.
+	 * Writes the given data into the output stream.
 	 * 
 	 * @throws Curly_Stream_Exception
 	 * @return void
@@ -89,9 +104,9 @@ class Curly_Stream_Buffered_Output implements Curly_Stream_Output {
 		$dataLen=strlen($data);
 		
 		// All data goes into the buffer
-		if($dataLen+$this->_bufLen<self::BUFFERSIZE) {
+		if($dataLen+$this->_curSize<$this->_maxSize) {
 			$this->_buffer.=$data;
-			$this->_bufLen+=$dataLen;
+			$this->_curSize+=$dataLen;
 			return;
 		}
 		
@@ -99,7 +114,7 @@ class Curly_Stream_Buffered_Output implements Curly_Stream_Output {
 		$this->_stream->write($this->_buffer.$data);
 		
 		$this->_buffer='';
-		$this->_bufLen=0;
+		$this->_curSize=0;
 	}
 	
 }
