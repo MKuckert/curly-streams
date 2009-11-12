@@ -97,7 +97,7 @@ class Curly_Stream_FileTest extends PHPUnit_Framework_TestCase {
 	}
 	
 	public function testSeekToEnd() {
-		$this->markTestSkipped('This test is known is problematic. See doc comment in Curly_Stream_File');
+		$this->markTestSkipped('This test is known as problematic. See doc comment in Curly_Stream_File');
 		
 		$this->assertEquals($this->stream->read(5), '01234');
 		$this->stream->seek(0, Curly_Stream_Seekable::ORIGIN_END);
@@ -164,6 +164,16 @@ class Curly_Stream_FileTest extends PHPUnit_Framework_TestCase {
 	public function testFlush() {
 		$this->stream=new Curly_Stream_File($this->outFilepath, Curly_Stream_File::CLEAN);
 		$this->stream->flush(); // Yep, this is all
+	}
+	
+	public function testOpenWithStringMode() {
+		foreach(array('r', 'r+', 'w'. 'w+', 'a', 'a+') as $mode) {
+			new Curly_Stream_File($this->outFilepath, $mode);
+		}
+		foreach(array('x', 'x+') as $mode) {
+			unlink($this->outFilepath);
+			new Curly_Stream_File($this->outFilepath, $mode);
+		}
 	}
 	
 }

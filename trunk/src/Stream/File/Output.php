@@ -18,7 +18,7 @@ class Curly_Stream_File_Output extends Curly_Stream_File_Seekable implements Cur
 	 * 
 	 * @throws Curly_Stream_Exception
 	 * @param string Path to the file
-	 * @param integer Opening modes. Default is CREATE|OPEN
+	 * @param mixed Opening modes. Default is CREATE|OPEN
 	 */
 	public function __construct($filepath, $mode=NULL) {
 		if($mode===NULL) {
@@ -26,24 +26,16 @@ class Curly_Stream_File_Output extends Curly_Stream_File_Seekable implements Cur
 		}
 		
 		$filepath=(string)$filepath;
-		if(($mode & Curly_Stream_File::OPEN)===Curly_Stream_File::OPEN) {
-			// File does not exist
-			if(($mode & Curly_Stream_File::CREATE)!==Curly_Stream_File::CREATE and !file_exists($filepath)) {
-				throw new Curly_Stream_Exception('The file '.$filepath.' does not exist and can not been opened');
-			}
-			
-			if(($mode & Curly_Stream_File::TRUNCATE)===Curly_Stream_File::TRUNCATE) {
-				$mode='w';
-			}
-			else {
-				$mode='a';
-			}
-		}
-		else if(($mode & Curly_Stream_File::CREATE)===Curly_Stream_File::CREATE) {
-			$mode='x';
+		
+		if(is_numeric($mode)) {
+			$mode=$this->determineMode($filepath, (int)$mode);
 		}
 		else {
-			throw new Curly_Stream_Exception('Invalid open mode given. At least the open or create mode has to be specified');
+			$mode=trim($mode, 'b');
+			$validModes=array('r+', 'w'. 'w+', 'a', 'a+', 'x', 'x+');
+			if(!in_array($mode, $validModes)) {
+				throw new Curly_Stream_Exception('Invalid mode '.$mode.' given');
+			}
 		}
 		
 		$this->_handle=fopen($filepath, $mode.'b');
@@ -51,6 +43,37 @@ class Curly_Stream_File_Output extends Curly_Stream_File_Seekable implements Cur
 			throw new Curly_Stream_Exception('Failed to open an outputstream to the file '.$filepath);
 		}
 	} // end of ctr
+	
+	/**
+	 * Determines the mode for the fopen call, based on the different mode
+	 * constants.
+	 * 
+	 * @throws Curly_Stream_Exception
+	 * @return string
+	 * @param string Path to the file
+	 * @param integer
+	 */
+	protected function determineMode($filepath, $mode) {
+		if(($mode & Curly_Stream_File::OPEN)===Curly_Stream_File::OPEN) {
+			// File does not exist
+			if(($mode & Curly_Stream_File::CREATE)!==Curly_Stream_File::CREATE and !file_exists($filepath)) {
+				throw new Curly_Stream_Exception('The file '.$filepath.' does not exist and can not been opened');
+			}
+			
+			if(($mode & Curly_Stream_File::TRUNCATE)===Curly_Stream_File::TRUNCATE) {
+				return 'w';
+			}
+			else {
+				return 'a';
+			}
+		}
+		else if(($mode & Curly_Stream_File::CREATE)===Curly_Stream_File::CREATE) {
+			return 'x';
+		}
+		else {
+			throw new Curly_Stream_Exception('Invalid open mode given. At least the open or create mode has to be specified');
+		}
+	}
 	
 	/**
 	 * Writes any buffered data into the stream.

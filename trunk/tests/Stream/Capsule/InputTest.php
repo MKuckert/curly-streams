@@ -2,12 +2,12 @@
 
 require_once 'PHPUnit/Framework/TestCase.php';
 
-class Curly_Stream_Base_ReaderSubclass extends Curly_Stream_Base_Reader {}
+class Curly_Stream_Capsule_InputSubclass extends Curly_Stream_Capsule_Input {}
 
 /**
- * Curly_Stream_Base_ReaderTest test case.
+ * Curly_Stream_Capsule_InputTest test case.
  */
-class Curly_Stream_Base_ReaderTest extends PHPUnit_Framework_TestCase {
+class Curly_Stream_Capsule_InputTest extends PHPUnit_Framework_TestCase {
 	
 	/**
 	 * @var Curly_Stream_Base_ReaderSubclass
@@ -16,7 +16,7 @@ class Curly_Stream_Base_ReaderTest extends PHPUnit_Framework_TestCase {
 	
 	public function testRead() {
 		$memory=new Curly_Stream_Memory_Input('0123456789ABCDEF');
-		$reader=new Curly_Stream_Base_ReaderSubclass($memory);
+		$reader=new Curly_Stream_Capsule_InputSubclass($memory);
 		
 		$this->assertEquals($reader->read(2), '01');
 		$reader->skip(2);

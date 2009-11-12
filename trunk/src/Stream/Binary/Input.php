@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Curly_Stream_Binary_Reader
+ * Curly_Stream_Binary_Input
  * 
  * Reads the data of a stream in a binary way.
  * 
@@ -11,7 +11,7 @@
  * @package Curly.Stream.Binary
  * @since 11.10.2009
  */
-class Curly_Stream_Binary_Reader extends Curly_Stream_Base_Reader {
+class Curly_Stream_Binary_Input extends Curly_Stream_Capsule_Input {
 	
 	/**#@+
 	 * @desc Possible values for the endian setting of this class.
