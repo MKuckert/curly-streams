@@ -31,17 +31,17 @@ class Curly_Stream_Buffered_Input extends Curly_Stream_Capsule_Input {
 	/**
 	 * @var integer Maximal size of the internal buffer.
 	 */
-	private $_maxSize=0;
+	protected $_maxSize=0;
 	
 	/**
 	 * @var string Internal buffer.
 	 */
-	private $_buffer='';
+	protected $_buffer='';
 	
 	/**
 	 * @var integer The current size of the internal buffer.
 	 */
-	private $_curSize=0;
+	protected $_curSize=0;
 	
 	/**
 	 * Constructor
