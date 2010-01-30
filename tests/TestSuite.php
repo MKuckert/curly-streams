@@ -1,32 +1,33 @@
 <?php
 
-require_once 'src/Exception.php';
-require_once 'src/Stream/Exception.php';
-require_once 'src/Stream/Input.php';
-require_once 'src/Stream/Output.php';
-require_once 'src/Stream/Seekable.php';
-require_once 'src/Stream.php';
-require_once 'src/Stream/Capsule/Input.php';
-require_once 'src/Stream/Memory/Seekable.php';
-require_once 'src/Stream/Memory/Input.php';
-require_once 'src/Stream/Memory/Output.php';
-require_once 'src/Stream/Memory.php';
-require_once 'src/Stream/Buffered/Input.php';
-require_once 'src/Stream/Buffered/Output.php';
-require_once 'src/Stream/File/Seekable.php';
-require_once 'src/Stream/File.php';
-require_once 'src/Stream/File/Input.php';
-require_once 'src/Stream/File/Output.php';
-require_once 'src/Stream/Append/Input.php';
-require_once 'src/Stream/Binary/Input.php';
-require_once 'src/Stream/Xml/Output.php';
-require_once 'src/Stream/Wrapper.php';
-require_once 'src/Stream/Wrapper/Registry.php';
-require_once 'src/Stream/Wrapper/Exception.php';
-require_once 'src/Stream/Factory/Allocator.php';
-require_once 'src/Stream/Factory.php';
-require_once 'src/Stream/Infinite/Input.php';
-require_once 'src/Stream/Empty/Input.php';
+require_once 'src/Curly/Exception.php';
+require_once 'src/Curly/Stream/Exception.php';
+require_once 'src/Curly/Stream/Input.php';
+require_once 'src/Curly/Stream/Output.php';
+require_once 'src/Curly/Stream/Seekable.php';
+require_once 'src/Curly/Stream.php';
+require_once 'src/Curly/Stream/Capsule/Input.php';
+require_once 'src/Curly/Stream/Memory/Seekable.php';
+require_once 'src/Curly/Stream/Memory/Input.php';
+require_once 'src/Curly/Stream/Memory/Output.php';
+require_once 'src/Curly/Stream/Memory.php';
+require_once 'src/Curly/Stream/Buffered/Input.php';
+require_once 'src/Curly/Stream/Buffered/Output.php';
+require_once 'src/Curly/Stream/File/Seekable.php';
+require_once 'src/Curly/Stream/File.php';
+require_once 'src/Curly/Stream/File/Input.php';
+require_once 'src/Curly/Stream/File/Output.php';
+require_once 'src/Curly/Stream/Append/Input.php';
+require_once 'src/Curly/Stream/Binary/Input.php';
+require_once 'src/Curly/Stream/Xml/Output.php';
+require_once 'src/Curly/Stream/Wrapper.php';
+require_once 'src/Curly/Stream/Wrapper/Registry.php';
+require_once 'src/Curly/Stream/Wrapper/Exception.php';
+require_once 'src/Curly/Stream/Factory/Allocator.php';
+require_once 'src/Curly/Stream/Factory.php';
+require_once 'src/Curly/Stream/Infinite/Input.php';
+require_once 'src/Curly/Stream/Empty/Input.php';
+require_once 'src/Curly/Stream/Base64/Encode/Input.php';
 
 require_once 'tests/Stream/Buffered/InputWithMemoryTest.php';
 require_once 'tests/Stream/Buffered/OutputWithFileTest.php';
@@ -46,6 +47,7 @@ require_once 'tests/Stream/WrapperTest.php';
 require_once 'tests/Stream/FactoryTest.php';
 require_once 'tests/Stream/Infinite/InputTest.php';
 require_once 'tests/Stream/Empty/InputTest.php';
+require_once 'tests/Stream/Base64/InputTest.php';
 
 require_once 'PHPUnit/Framework/TestSuite.php';
 
@@ -78,6 +80,7 @@ class TestSuite extends PHPUnit_Framework_TestSuite {
 		$this->addTestSuite('Curly_Stream_FactoryTest');
 		$this->addTestSuite('Curly_Stream_Infinite_InputTest');
 		$this->addTestSuite('Curly_Stream_Empty_InputTest');
+		$this->addTestSuite('Curly_Stream_Base64_InputTest');
 	}
 	
 	/**
