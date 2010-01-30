@@ -21,6 +21,11 @@ class Curly_Stream_Wrapper_Registry {
 	// STATIC:
 	
 	/**
+	 * @var integer ID value for the {@method registerOnce} method
+	 */
+	static private $id=0;
+	
+	/**
 	 * @var Curly_Stream_Wrapper_Registry The global registry instance.
 	 */
 	static private $_globalInstance=NULL;
@@ -92,6 +97,28 @@ class Curly_Stream_Wrapper_Registry {
 		stream_wrapper_register($name, self::WRAPPERCLASS);
 		
 		return $this;
+	}
+	
+	/**
+	 * Registers the given stream temporarly at this registry, so it may be used for one call.
+	 * 
+	 * @return string The uri to use this stream instance
+	 * @param Curly_Stream_Input|Curly_Stream_Output
+	 */
+	public function registerOnce($stream) {
+		if(!(
+			$stream instanceof Curly_Stream_Input
+			or $stream instanceof Curly_Stream_Output
+		)) {
+			throw new Curly_Stream_Wrapper_Exception('Invalid stream instance given. InputStream or OutputStream expected');
+		}
+		
+		$protocol='stream-proto-'.self::$id++;
+		
+		$this->register($protocol, $stream);
+		$this->_onceRegistry[]=$protocol;
+		
+		return $protocol.'://';
 	}
 	
 	/**

@@ -89,7 +89,7 @@ class Curly_Stream_Wrapper {
 		}
 		
 		// Resolve stream
-		$stream=$registry->getByName($proto);
+		$stream=$registry->getByName($proto, true);
 		if(is_string($stream)) {
 			try {
 				$stream=new $stream($params, $mode);
@@ -268,6 +268,44 @@ class Curly_Stream_Wrapper {
 		}
 		
 		return true;
+	}
+	
+	/**
+	 * Retrieves informations about a file
+	 * 
+	 * @return array
+	 * @param string File path
+	 * @param integer Flags
+	 */
+	public function url_stat($path, $flags) {
+		return $this->stream_stat();
+	}
+	
+	/**
+	 * Retrieves informations about a file
+	 * 
+	 * @return array
+	 * @param string File path
+	 * @param integer Flags
+	 */
+	public function stream_stat() {
+		$stats=array(
+			'dev' => 0,
+			'ino' => 0,
+			'mode' => 0,
+			'nlink' => 0,
+			'uid' => 0,
+			'gid' => 0,
+			'rdev' => 0,
+			'size' => 0,
+			'atime' => time(),
+			'mtime' => time(),
+			'ctime' => time(),
+			'blksize' => time(),
+			'blocks' => time()
+		);
+		$stats=array_merge($stats, array_values($stats));
+		return $stats;
 	}
 	
 }
