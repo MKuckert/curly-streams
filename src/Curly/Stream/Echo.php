@@ -6,7 +6,7 @@
  * Implements a stream directly printing every data to the standard output.
  * 
  * @author Martin Kuckert
- * @copyright Copyright (c) 2009 Martin Kuckert
+ * @copyright Copyright (c) 2009-2010 Martin Kuckert
  * @license New BSD License
  * @package Curly.Stream
  * @since 09.10.2009

@@ -174,8 +174,9 @@ class Curly_Stream_Wrapper_RegistryTest extends PHPUnit_Framework_TestCase {
 		$instance=Curly_Stream_Wrapper_Registry::getGlobalInstance();
 		$uri=$instance->registerOnce($stream);
 		
-		$this->assertEquals($uri, 'stream-proto-0');
+		$this->assertEquals($uri, 'stream-proto-0://');
 		$this->assertEquals($instance->getByName('stream-proto-0'), $stream);
+		$this->assertEquals($instance->isRegisteredName('stream-proto-0'), true);
 		
 		$this->assertEquals(file_get_contents($uri), 'abcdef');
 		$this->assertEquals($instance->isRegisteredName('stream-proto-0'), false);

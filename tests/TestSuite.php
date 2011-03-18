@@ -7,6 +7,7 @@ require_once 'src/Curly/Stream/Output.php';
 require_once 'src/Curly/Stream/Seekable.php';
 require_once 'src/Curly/Stream.php';
 require_once 'src/Curly/Stream/Capsule/Input.php';
+require_once 'src/Curly/Stream/Capsule/Output.php';
 require_once 'src/Curly/Stream/Memory/Seekable.php';
 require_once 'src/Curly/Stream/Memory/Input.php';
 require_once 'src/Curly/Stream/Memory/Output.php';
@@ -19,6 +20,7 @@ require_once 'src/Curly/Stream/File/Input.php';
 require_once 'src/Curly/Stream/File/Output.php';
 require_once 'src/Curly/Stream/Append/Input.php';
 require_once 'src/Curly/Stream/Binary/Input.php';
+require_once 'src/Curly/Stream/Binary/Output.php';
 require_once 'src/Curly/Stream/Xml/Output.php';
 require_once 'src/Curly/Stream/Wrapper.php';
 require_once 'src/Curly/Stream/Wrapper/Registry.php';
@@ -41,6 +43,7 @@ require_once 'tests/Stream/FileTest.php';
 require_once 'tests/Stream/Append/InputTest.php';
 require_once 'tests/Stream/Capsule/InputTest.php';
 require_once 'tests/Stream/Binary/InputTest.php';
+require_once 'tests/Stream/Binary/OutputTest.php';
 require_once 'tests/Stream/Xml/OutputTest.php';
 require_once 'tests/Stream/Wrapper/RegistryTest.php';
 require_once 'tests/Stream/WrapperTest.php';
@@ -74,13 +77,14 @@ class TestSuite extends PHPUnit_Framework_TestSuite {
 		$this->addTestSuite('Curly_Stream_Append_InputTest');
 		$this->addTestSuite('Curly_Stream_Capsule_InputTest');
 		$this->addTestSuite('Curly_Stream_Binary_InputTest');
+		$this->addTestSuite('Curly_Stream_Binary_OutputTest');
 		$this->addTestSuite('Curly_Stream_Xml_OutputTest');
 		$this->addTestSuite('Curly_Stream_Wrapper_RegistryTest');
 		$this->addTestSuite('Curly_Stream_WrapperTest');
 		$this->addTestSuite('Curly_Stream_FactoryTest');
 		$this->addTestSuite('Curly_Stream_Infinite_InputTest');
 		$this->addTestSuite('Curly_Stream_Empty_InputTest');
-		$this->addTestSuite('Curly_Stream_Base64_InputTest');
+		//$this->addTestSuite('Curly_Stream_Base64_InputTest');
 	}
 	
 	/**

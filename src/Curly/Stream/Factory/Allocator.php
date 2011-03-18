@@ -6,7 +6,7 @@
  * Partially adopted from the CI_Allocator_Base class from the curly-ioc project.
  * 
  * @author Martin Kuckert
- * @copyright Copyright (c) 2009 Martin Kuckert
+ * @copyright Copyright (c) 2009-2010 Martin Kuckert
  * @license New BSD License
  * @package Curly.Stream.Factory
  * @since 12.11.2009

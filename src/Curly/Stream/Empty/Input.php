@@ -6,7 +6,7 @@
  * An input stream containing no data.
  * 
  * @author Martin Kuckert
- * @copyright Copyright (c) 2009 Martin Kuckert
+ * @copyright Copyright (c) 2009-2010 Martin Kuckert
  * @license New BSD License
  * @package Curly.Stream.Empty
  * @since 11.10.2009

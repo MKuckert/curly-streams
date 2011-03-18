@@ -6,7 +6,7 @@
  * Implements an inputstream with data hold in memory.
  * 
  * @author Martin Kuckert
- * @copyright Copyright (c) 2009 Martin Kuckert
+ * @copyright Copyright (c) 2009-2010 Martin Kuckert
  * @license New BSD License
  * @package Curly.Stream.Memory
  * @since 11.09.2009
@@ -30,7 +30,7 @@ class Curly_Stream_Memory_Input extends Curly_Stream_Memory_Seekable implements 
 	 * @return boolean
 	 */
 	public function available() {
-		return $this->_pos+1<$this->_dataLen;
+		return $this->_pos<$this->_dataLen;
 	}
 	
 	/**

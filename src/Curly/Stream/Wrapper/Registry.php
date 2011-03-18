@@ -6,7 +6,7 @@
  * Registry for any stream object or class, callable through a php stream wrapper.
  * 
  * @author Martin Kuckert
- * @copyright Copyright (c) 2009 Martin Kuckert
+ * @copyright Copyright (c) 2009-2010 Martin Kuckert
  * @license New BSD License
  * @package Curly.Stream.Wrapper
  * @since 08.11.2009
@@ -19,11 +19,6 @@ class Curly_Stream_Wrapper_Registry {
 	const WRAPPERCLASS='Curly_Stream_Wrapper';
 	
 	// STATIC:
-	
-	/**
-	 * @var integer ID value for the {@method registerOnce} method
-	 */
-	static private $id=0;
 	
 	/**
 	 * @var Curly_Stream_Wrapper_Registry The global registry instance.
@@ -52,12 +47,22 @@ class Curly_Stream_Wrapper_Registry {
 		self::$_globalInstance=$value;
 	}
 	
+	/**
+	 * @var integer ID for the registerOnce method
+	 */
+	static private $id=0;
+	
 	// INSTANCE:
 	
 	/**
 	 * @var array Associativ array of all registered streams.
 	 */
 	private $_registry=array();
+	
+	/**
+	 * @var array List of streams registered for just a single usage.
+	 */
+	private $_onceRegistry=array();
 	
 	/**
 	 * Adds a stream to this registry.
@@ -165,9 +170,17 @@ class Curly_Stream_Wrapper_Registry {
 	 * 
 	 * @return Curly_Stream_Input|Curly_Stream_Output|NULL
 	 * @param string
+	 * @param boolean Flag to check the once property of the registry
 	 */
-	public function getByName($name) {
-		return $this->_registry[strtolower($name)];
+	public function getByName($name, $checkOnceProp=false) {
+		$name=strtolower($name);
+		if($checkOnceProp and in_array($name, $this->_onceRegistry)) {
+			$stream=$this->_registry[$name];
+			unset($this->_registry[$name]);
+			return $stream;
+		}
+		
+		return $this->_registry[$name];
 	}
 	
 	/**

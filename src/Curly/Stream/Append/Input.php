@@ -6,7 +6,7 @@
  * Combines different input streams to one appended stream.
  * 
  * @author Martin Kuckert
- * @copyright Copyright (c) 2009 Martin Kuckert
+ * @copyright Copyright (c) 2009-2010 Martin Kuckert
  * @license New BSD License
  * @package Curly.Stream.Append
  * @since 13.09.2009

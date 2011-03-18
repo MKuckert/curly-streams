@@ -8,7 +8,7 @@
  * This implementation simply encapsulates a Curly_Stream_Input instance.
  * 
  * @author Martin Kuckert
- * @copyright Copyright (c) 2009 Martin Kuckert
+ * @copyright Copyright (c) 2009-2010 Martin Kuckert
  * @license New BSD License
  * @package Curly.Stream.Capsule
  * @since 11.10.2009

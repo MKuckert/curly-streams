@@ -1,0 +1,1 @@
+E:\dev\php-5.3.1-nts-Win32-VC6-x86\php.exe E:\dev\php-5.3.1-nts-Win32-VC6-x86\pharcommand.phar pack -a curly-streams.phar -c 0 -h sha1 -f D:\dev\Curly\V2\tmp\curly-streams.phar -i \.php$ D:\dev\Curly\V2\src
