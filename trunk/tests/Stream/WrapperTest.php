@@ -61,6 +61,9 @@ class Curly_Stream_WrapperTest extends PHPUnit_Framework_TestCase {
 			fread($handle, 20000)
 		);
 		
+		// Trigger feof
+		fread($handle, 1);
+		
 		$this->assertFalse($stream->available());
 	}
 	

@@ -19,7 +19,7 @@ class Curly_Stream_Binary_InputTest extends PHPUnit_Framework_TestCase {
 					dirname(__FILE__).'/testfile.bigendian'
 				)
 			)
-		, Curly_Stream_Binary_Input::ENDIAN_BIG);
+		, Curly_Stream::ENDIAN_BIG);
 		
 		$this->doRead();
 	}
@@ -31,7 +31,7 @@ class Curly_Stream_Binary_InputTest extends PHPUnit_Framework_TestCase {
 					dirname(__FILE__).'/testfile.littleendian'
 				)
 			)
-		, Curly_Stream_Binary_Input::ENDIAN_LITTLE);
+		, Curly_Stream::ENDIAN_LITTLE);
 		
 		$this->doRead();
 	}

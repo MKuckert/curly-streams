@@ -1,0 +1,151 @@
+abstract ImageFormat
+PngImageFormat -|> ImageFormat
+JpgImageFormat -|> ImageFormat
+GifImageFormat -|> ImageFormat
+WbmpImageFormat -|> ImageFormat
+GdImageFormat -|> ImageFormat
+Gd2ImageFormat -|> ImageFormat
+XbmImageFormat -|> ImageFormat
+
+Color
+	int red (0-255)
+	int green (0-255)
+	int blue (0-255)
+TrueColor -|> Color
+	double alpha (0-1)
+PaletteColor -|> Color
+	ctr(PaletteImage)
+	int identifier
+
+interface Font
+	_draw(resource image, int x, int y, int size, double angle, string s, Brush brush):void
+BuiltinFont -|> Font
+	int identifier
+	static loadFont(string filename):BuiltinFont
+TrueTypeFont -|> Font
+	string filename
+FreeTypeFont -|> Font
+	string filename
+PostScriptType1Font -|> Font
+	string filename
+
+BrushStyle
+	array<Color> colors
+
+Brush
+	getBrushStyle():BrushStyle
+	setBrushStyle(BrushStyle):Brush
+TextureBrush -|> Brush
+	getTexture():Image
+	setTexture(Image):TextureBrush
+ColorBrush -|> Brush
+	getColor():Color
+	setColor(Color):ColorBrush
+
+Pen
+	getBrush():Brush
+	setBrush(Brush):Pen
+	getThickness():int
+	setThickness(int):Pen
+
+Image
+	static fromStream(InputStream, mixed typeHint=NULL):Image
+	static fromFile(string filename, mixed typeHint=NULL):Image
+	static toStream(OutputStream, Image, ImageFormat):void
+	static toFile(string filename, Image, ImageFormat):void
+	static createTruecolorImage(int w, int h):TruecolorImage
+	static createPaletteImage(int w, int h):PaletteImage
+	clone():Image
+	getWidth():int
+	setWidth(int):Image
+	getHeight():int
+	setHeight(int):Image
+	getColorAt(int x, int y):Color
+	setColorAt(int x, int y, Color color):Image
+	getTransparentColor():Color
+	setTransparentColor(Color):Image
+	getInterlaceFlag():boolean
+	setInterlaceFlag(boolean):Image
+	getSaveAlphaFlag():boolean
+	setSaveAlphaFlag(boolean):Image
+	drawString(int x, int y, int size, double angle, string s, Font font, Brush brush):Image
+	drawLine(int x1, int y1, int x2, int y2, Pen pen):Image
+	drawEllipse(int cx, int cy, int width, int height, Pen pen, int startAngle=0, int endAngle=M_PI_2):Image
+	drawPolygon(array points, Pen pen):Image
+	drawRectangle(int x, int y, int w, int h, Pen pen):Image
+	drawBezier(...):Image
+	fill(int startX=0, int startY=0, Color color=NULL):Image
+	fillEllipse(int cx, int cy, int width, int height, Brush brush):Image
+	fillArc(int cx, int cy, int width, int height, Brush brush, int start=0, int end=M_PI_2, int style=IMG_ARC_PIE):Image
+	fillPolygon(array points, Brush brush):Image
+	fillRectangle(int x, int y, int w, int h, Brush brush):Image
+	fillToBorder(int x, int y, Color borderColor, Brush brush):Image
+	copy(Image source, int srcX, int srcY, int srcW, int srcH, int dstX, int dstY, int dstW=NULL, int dstH=NULL, double alpha=0):Image
+	resize(int w, int h):Image
+	mirror(boolean horizontally=true):Image
+	rotate(double angle, Brush backgroundColor, boolean ignoreTransparent=false):Image
+	crop(int x, int y, int w=NULL, int h=NULL):Image
+	applyFilter(ImageFilter):Image
+	_colorToInt(Color, boolean allocate=false):int
+	_intToColor(Color):int
+
+TruecolorImage -|> Image
+	getAlphaBlending():boolean
+	setAlphaBlending(boolean):Image
+	getAlphaBlendingLayerEffect():int
+	setAlphaBlendingLayerEffect(int):Image
+	getAntiAlias():boolean
+	setAntiAlias(boolean):Image
+	toPaletteImage(bool dither=false, int colors=256):PaletteImage
+
+PaletteImage -|> Image
+	toTruecolorImage():TruecolorImage
+	getColorForIndex(int index):PaletteColor
+	getNumberOfColors():int
+	copyPalette(PaletteImage source):PaletteImage
+	matchColors(TruecolorImage):PaletteImage
+
+interface ImageFilter
+	filter(resource image):boolean
+
+GammaFilter -|> ImageFilter
+	double value
+
+ConvolutionFilter -|> ImageFilter
+	array matrix
+	float div
+	float offset
+
+NegateFilter -|> ImageFilter
+
+GrayscaleFilter -|> ImageFilter
+
+BrightnessFilter -|> ImageFilter
+	int brightnessValue
+
+ContrastFilter -|> ImageFilter
+	int contrastValue
+
+ColorizeFilter -|> ImageFilter
+	Color color
+
+DetectEdgeFilter -|> ImageFilter
+
+EmbossFilter -|> ImageFilter
+
+GaussianBlurFilter -|> ImageFilter
+
+SelectiveBlurFilter -|> ImageFilter
+
+MeanRemovalFilter -|> ImageFilter
+
+SmoothFilter -|> ImageFilter
+	int smoothnessValue
+
+== TODO ==
+- Auch Alphakanal in PaletteImage?
+- Unterstützt imagerotate einen Brush als backgroundColor
+- TransparentColor, InterlaceFlag, SaveAlphaFlag in ImageWriter ablegen?
+- XpmImageFormat?
+- imagefilter
+- Verläufe?

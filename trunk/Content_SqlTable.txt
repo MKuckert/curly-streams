@@ -1,0 +1,20 @@
+MySQL:
+
+create table content (
+	id varchar(32) NOT NULL,
+	mimetype varchar(64) NOT NULL,
+	created datetime NOT NULL,
+	updated datetime NOT NULL,
+	content longblob NOT NULL,
+	primary key( id )
+) engine=InnoDB;
+create table attributes (
+	content_id varchar(32) NOT NULL,
+	name varchar(64) NOT NULL,
+	value text NOT NULL,
+	primary key( content_id, name ),
+	foreign key( content_id )
+		references content( id )
+			on delete cascade
+			on update cascade
+) engine=InnoDB;

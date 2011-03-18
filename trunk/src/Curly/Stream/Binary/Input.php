@@ -6,24 +6,17 @@
  * Reads the data of a stream in a binary way.
  * 
  * @author Martin Kuckert
- * @copyright Copyright (c) 2009 Martin Kuckert
+ * @copyright Copyright (c) 2009-2010 Martin Kuckert
  * @license New BSD License
  * @package Curly.Stream.Binary
  * @since 11.10.2009
  */
 class Curly_Stream_Binary_Input extends Curly_Stream_Capsule_Input {
 	
-	/**#@+
-	 * @desc Possible values for the endian setting of this class.
-	 */
-	const ENDIAN_LITTLE=true;
-	const ENDIAN_BIG=false;
-	/**#@-*/
-	
 	/**
 	 * @var boolean True if the little endian byte order should been used.
 	 */
-	private $_littleEndian=self::ENDIAN_LITTLE;
+	private $_littleEndian=Curly_Stream::ENDIAN_LITTLE;
 	
 	/**
 	 * Checks whether this reader uses little endian byte order.
@@ -50,7 +43,7 @@ class Curly_Stream_Binary_Input extends Curly_Stream_Capsule_Input {
 	 * @param Curly_Stream_Input
 	 * @param boolean Flag to use little endian byte order
 	 */
-	public function __construct(Curly_Stream_Input $stream, $littleEndian=self::ENDIAN_LITTLE) {
+	public function __construct(Curly_Stream_Input $stream, $littleEndian=Curly_Stream::ENDIAN_LITTLE) {
 		parent::__construct($stream);
 		$this->setUseLittleEndian($littleEndian);
 	}

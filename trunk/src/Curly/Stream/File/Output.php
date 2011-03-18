@@ -6,7 +6,7 @@
  * Implements an outputstream to write data to a file.
  * 
  * @author Martin Kuckert
- * @copyright Copyright (c) 2009 Martin Kuckert
+ * @copyright Copyright (c) 2009-2010 Martin Kuckert
  * @license New BSD License
  * @package Curly.Stream.File
  * @since 12.09.2009

@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<project name="curly-streams" default="full" basedir=".">
+	<property file="./build.properties" />
+	
+	<target name="clean-builddir">
+		<delete dir="${build.directory}" includeemptydirs="true" />
+	</target>
+	
+	<target name="clean-zip">
+		<delete file="${build.directory}/../${project.fullname}.zip" />
+	</target>
+	
+	<target name="clean" depends="clean-builddir, clean-zip" />
+	
+	<target name="prepare" depends="clean">
+		<echo msg="Creating build directory ${build.directory}" />
+		<mkdir dir="${build.directory}" />
+	</target>
+	
+	<target name="copy-src">
+		<copy todir="${build.directory}/Curly">
+			<fileset dir="${source.directory}">
+				<include name="**/*.php" />
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="pack-zip">
+		<zip destfile="${build.directory}/../${project.fullname}.zip" basedir="${build.directory}" />
+	</target>
+	
+	<target name="pack-phar">
+		<pharpackage destfile="${build.directory}/../${project.fullname}.phar" basedir="${build.directory}"
+			stub="&lt;?php die('GREETINGS FROM PHAR FILE'); __HALT_COMPILER();"
+		>
+			<fileset dir="${build.directory}">
+				<include name="**/**" />
+			</fileset>
+			<metadata>
+				<element name="version" value="${project.version}" />
+				<element name="author">
+					<element name="Martin Kuckert">
+						<element name="e-mail" value="martin@curlybracket.de" />
+					</element>
+				</element>
+			</metadata>
+		</pharpackage>
+	</target>
+	
+	<target name="collect" depends="copy-src" />
+	<target name="base" depends="prepare, collect" />
+	<target name="full" depends="prepare, collect, pack-zip, pack-phar" />
+</project>

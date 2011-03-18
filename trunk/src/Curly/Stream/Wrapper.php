@@ -6,7 +6,7 @@
  * Proxy class to use any stream object as a php stream wrapper.
  * 
  * @author Martin Kuckert
- * @copyright Copyright (c) 2009 Martin Kuckert
+ * @copyright Copyright (c) 2009-2010 Martin Kuckert
  * @license New BSD License
  * @package Curly.Stream
  * @since 08.11.2009
@@ -271,41 +271,27 @@ class Curly_Stream_Wrapper {
 	}
 	
 	/**
-	 * Retrieves informations about a file
+	 * Returns statistics to this stream.
 	 * 
 	 * @return array
-	 * @param string File path
-	 * @param integer Flags
-	 */
-	public function url_stat($path, $flags) {
-		return $this->stream_stat();
-	}
-	
-	/**
-	 * Retrieves informations about a file
-	 * 
-	 * @return array
-	 * @param string File path
-	 * @param integer Flags
 	 */
 	public function stream_stat() {
 		$stats=array(
-			'dev' => 0,
-			'ino' => 0,
-			'mode' => 0,
-			'nlink' => 0,
-			'uid' => 0,
-			'gid' => 0,
-			'rdev' => 0,
-			'size' => 0,
-			'atime' => time(),
-			'mtime' => time(),
-			'ctime' => time(),
-			'blksize' => time(),
-			'blocks' => time()
+			'dev' => -1,
+			'ino' => -1,
+			'mode' => -1,
+			'nlink' => -1,
+			'uid' => -1,
+			'gid' => -1,
+			'rdev' => -1,
+			'size' => -1,
+			'atime' => -1,
+			'mtime' => -1,
+			'ctime' => -1,
+			'blksize' => -1,
+			'blocks' => -1
 		);
-		$stats=array_merge($stats, array_values($stats));
-		return $stats;
+		return array_merge(array_values($stats), $stats);
 	}
 	
 }

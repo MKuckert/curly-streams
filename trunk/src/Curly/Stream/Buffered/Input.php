@@ -16,7 +16,7 @@
  * performance gain.
  * 
  * @author Martin Kuckert
- * @copyright Copyright (c) 2009 Martin Kuckert
+ * @copyright Copyright (c) 2009-2010 Martin Kuckert
  * @license New BSD License
  * @package Curly.Stream.Buffered
  * @since 11.09.2009
@@ -82,9 +82,8 @@ class Curly_Stream_Buffered_Input extends Curly_Stream_Capsule_Input {
 		
 		// Exactly the right amount of data available
 		if($this->_curSize==$len) {
-			$this->_curSize=0;
 			$retval=$this->_buffer;
-			$this->_buffer='';
+			$this->clear();
 			return $retval;
 		}
 		// Not enough data in buffer
@@ -98,8 +97,7 @@ class Curly_Stream_Buffered_Input extends Curly_Stream_Capsule_Input {
 				$retval=
 					$this->_buffer
 					.$this->_stream->read($len-$this->_curSize);
-				$this->_buffer='';
-				$this->_curSize=0;
+				$this->clear();
 				return $retval;
 			}
 		}
@@ -133,8 +131,7 @@ class Curly_Stream_Buffered_Input extends Curly_Stream_Capsule_Input {
 			// More data than buffersize requested
 			if($len>$bufLen) {
 				$this->_stream->skip($len-$bufLen);
-				$this->_buffer='';
-				$this->_curSize=0;
+				$this->clear();
 				return;
 			}
 			
@@ -147,6 +144,16 @@ class Curly_Stream_Buffered_Input extends Curly_Stream_Capsule_Input {
 			$this->_buffer=substr($this->_buffer, $len);
 			$this->_curSize-=$len;
 		}
+	}
+	
+	/**
+	 * Clears the internal buffer.
+	 * 
+	 * @return void
+	 */
+	public function clear() {
+		$this->_buffer='';
+		$this->_curSize=0;
 	}
 	
 }

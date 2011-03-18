@@ -10,7 +10,7 @@
  * input to create a valid xml output.
  * 
  * @author Martin Kuckert
- * @copyright Copyright (c) 2009 Martin Kuckert
+ * @copyright Copyright (c) 2009-2010 Martin Kuckert
  * @license New BSD License
  * @package Curly.Stream.Xml
  * @since 01.11.2009

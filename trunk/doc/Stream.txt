@@ -11,4 +11,9 @@
  - ChunkInputStream -|> InputStream [TODO]
  - ArrayInputStream -|> InputStream [TODO]
  - ArrayOutputStream -|> OutputStream [TODO]
+ - CapsuledOutputStream -|> OutputStream [TODO]
+ - FilterInputStream -|> CapsuledInputStream [TODO]
+ - FilterOutputStream -|> CapsuledOutputStream [TODO]
  - PhpStreamStream (Wrapper um PHP-Stream; Input/Output dynamisch je nach Features des Stream) [TODO]
+
+php://memory und php://temp
